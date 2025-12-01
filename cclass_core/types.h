@@ -24,6 +24,8 @@ CLASS(Int8) {
     METHOD_PTR(Int8, void, Shr, int8_t bits);
 };
 
+
 CONSTRUCTOR_OF(Int8);
+DESTRUCTOR_OF(Int8);
 
 #endif C_CLASS_CORE_TYPES_HCLASS

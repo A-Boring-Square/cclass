@@ -7,18 +7,42 @@
 #define C_CLASS_VERSION_PATCH 0
 
 
+#define C_CLASS_VERSION_STRING_IMPL(major, minor, patch) #major "." #minor "." #patch
+
 #define C_CLASS_VERSION_STRING \
     C_CLASS_VERSION_STRING_IMPL(C_CLASS_VERSION_MAJOR, C_CLASS_VERSION_MINOR, C_CLASS_VERSION_PATCH)
 
-#define C_CLASS_VERSION_STRING_IMPL(major, minor, patch) #major "." #minor "." #patch
 
 #define C_CLASS_VERSION_NUM (C_CLASS_VERSION_MAJOR * 100) + (C_CLASS_VERSION_MINOR * 10) + C_CLASS_VERSION_PATCH
 
+#undef C_CLASS_VERSION_STRING_IMPL
 
 // NOTE(A-Boring-Square): does not guarantee that cclass will use SIMD it only enables it as an option
 #ifndef C_CLASS_USE_SIMD
 #define C_CLASS_USE_SIMD 1
 #endif // C_CLASS_USE_SIMD
+
+#define PTR_SENTINEL NULL
+#define INT_SENTINEL 0
+#define VARG_MAX_ARGS 64
+
+
+// Helper to stringify a macro argument
+#define STR(x) STR_IMPL(x)
+#define STR_IMPL(x) #x
+
+// Compile-time panic
+#define PANIC_COMPTIME(msg) _Static_assert(0, "COMPILE-TIME PANIC at " __FILE__ ":" STR(__LINE__) " - " msg)
+
+// Runtime panic
+// NOTE(A-Boring-Square): This requires `stdio.h` or a compatable `fprintf` impl
+#define PANIC_RUNTIME(msg) do { \
+    fprintf(stderr, "RUNTIME PANIC at %s:%d - %s\n", __FILE__, __LINE__, msg); \
+    abort(); \
+} while(0)
+
+#undef STR
+#undef STR_IMPL
 
 
 #ifdef _C_CLASS_MACRO_COMMENT
@@ -178,5 +202,6 @@
 #endif // _C_CLASS_MACRO_COMMENT
 
 #define METHOD_CALL_NO_ARGS(obj, method) ((obj)->method(SELF(obj)))
+
 
 #endif // C_CLASS_H
