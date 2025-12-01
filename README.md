@@ -31,13 +31,6 @@ C++ adds complexity, templates, multiple inheritance, and hidden behaviors that 
 </ul>
 </div>
 
-<h2>File Extensions</h2>
-<ul>
-<li><strong>.hclass</strong> – Class headers: type definitions, method pointer declarations, constants, and macros.</li>
-<li><strong>.cclass</strong> – Class implementation: method definitions, constructors, destructors, and internal helpers.</li>
-</ul>
-<p>Files can be compiled directly with <code>gcc</code>, <code>clang</code>, or <code>MSVC</code></p>
-
 <h2>Installation</h2>
 1. Download the repository or the provided ZIP with headers and static library.
     For example, unzip into a folder called `cclass`.
