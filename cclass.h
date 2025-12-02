@@ -23,9 +23,15 @@
 #endif // C_CLASS_USE_SIMD
 
 #define PTR_SENTINEL NULL
-#define INT_SENTINEL 0
-#define VARG_MAX_ARGS 64
 
+#define INT_SENTINEL 0
+
+// Internal do not use
+#define C_CLASS_VARG_MAX_ARGS 64
+
+#define MAX_ARGS C_CLASS_VARG_MAX_ARGS
+
+#define ANY_CLASS void*
 
 // Helper to stringify a macro argument
 #define STR(x) STR_IMPL(x)
@@ -158,6 +164,8 @@
 
 #define NEW(classname, ...) classname##_new(__VA_ARGS__)
 
+#define NEW_NO_ARGS(classname) classname##_new()
+
 #ifdef _C_CLASS_MACRO_COMMENT
 /* Delete object */
 #endif // _C_CLASS_MACRO_COMMENT
@@ -203,5 +211,41 @@
 
 #define METHOD_CALL_NO_ARGS(obj, method) ((obj)->method(SELF(obj)))
 
+#ifdef _C_CLASS_MACRO_COMMENT
+/* ---------------------- COPY SUPPORT ---------------------- */
+/*
+   DEFAULT_COPY_DEF(classname)
+   - Declares a default shallow copy function for a class.
+   - Automatically allocates memory and memcpy's the object.
+*/
+#endif // _C_CLASS_MACRO_COMMENT
+#define DEFAULT_COPY_DEF(classname) \
+    classname* classname##_copy(classname* obj)
+
+/*
+   DEFAULT_COPY_IMPL(classname)
+   - Implements the default shallow copy using malloc + memcpy.
+*/
+#define DEFAULT_COPY_IMPL(classname) \
+    classname* classname##_copy(classname* obj) { \
+        classname* copy = malloc(sizeof(classname)); \
+        if (!copy) PANIC_RUNTIME("Failed to allocate memory for COPY"); \
+        memcpy(copy, obj, sizeof(classname)); \
+        return copy; \
+    }
+
+/*
+   COPY_OF(classname, ...)
+   - Optional macro to declare a custom copy function for a class.
+   - Allows deep copy overrides.
+*/
+#define COPY_OF(classname) DEFAULT_COPY_DEF(classname)
+
+/*
+   COPY(obj, classname)
+   - Generic macro to copy an object.
+   - Uses the class's copy function (custom or default).
+*/
+#define COPY(classname, obj) classname##_copy(obj)
 
 #endif // C_CLASS_H

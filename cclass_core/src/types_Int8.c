@@ -1,6 +1,5 @@
 #include "cclass.h"
 #include "types.h"
-#include "simd.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -94,4 +93,7 @@ CONSTRUCTOR_OF(Int8) {
 
 DESTRUCTOR_OF(Int8) {
     free(self);
+    
 }
+
+DEFAULT_COPY_IMPL(Int8)
