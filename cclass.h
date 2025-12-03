@@ -50,6 +50,16 @@
 #undef STR
 #undef STR_IMPL
 
+#if defined(_MSC_VER)
+    // SIMD_HINT macro for cross-compiler vectorization hints
+    #define SIMD_HINT __pragma(loop(ivdep))
+#elif defined(__clang__) || defined(__GNUC__)
+    // SIMD_HINT macro for cross-compiler vectorization hints
+    #define SIMD_HINT _Pragma("omp simd")
+#else
+    // SIMD_HINT macro for cross-compiler vectorization hints
+    #define SIMD_HINT
+#endif
 
 #ifdef _C_CLASS_MACRO_COMMENT
 /* ==========================================================

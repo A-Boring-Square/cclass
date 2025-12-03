@@ -2,6 +2,8 @@
 #define C_CLASS_CORE_TYPES_HCLASS
 #include "cclass.h"
 #include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
 
 // -------------------
 // Int8
@@ -275,10 +277,55 @@ CLASS(String) {
     METHOD_PTR(String, void, Reserve, size_t size);
     METHOD_PTR(String, size_t, CurrentCapacity);
     METHOD_PTR(String, void, Append, const char* seperator, const char* str, ...);
-    METHOD_PTR(String, char*, _GetRaw) // NOTE: **INTERNAL RUNTIME USE ONLY**
+    METHOD_PTR(String, char*, _GetRaw); // NOTE: **INTERNAL RUNTIME USE ONLY**
 };
 
+CONSTRUCTOR_OF(String);
+DESTRUCTOR_OF(String);
 COPY_OF(String);
+
+// Dynamically resizing string class
+CLASS(WideString) {
+    // Data buffer
+    wchar_t* _data;
+
+    // Allocated bytes
+    size_t _capacity;
+
+    // Number of bytes used
+    size_t _length;
+
+    METHOD_PTR(String, size_t, Len);
+    METHOD_PTR(String, const wchar_t*, AsString);
+    METHOD_PTR(String, void, FromString, const char* str);
+    METHOD_PTR(String, void, Reserve, size_t size);
+    METHOD_PTR(String, size_t, CurrentCapacity);
+    METHOD_PTR(String, void, Append, const char* seperator, const char* str, ...);
+    METHOD_PTR(String, wchar_t*, _GetRaw); // NOTE: **INTERNAL RUNTIME USE ONLY**
+};
+
+CONSTRUCTOR_OF(WideString);
+DESTRUCTOR_OF(WideString);
+COPY_OF(WideString);
+
+
+CLASS(Array) {
+    size_t _length;
+    size_t _capacity;
+    void* _data;
+    size_t _element_size;
+
+    // Methods
+    METHOD_PTR(Array, void, Push, void* elem, size_t element_size);
+    METHOD_PTR(Array, void*, At, size_t index);
+    METHOD_PTR(Array, size_t, Len);
+    METHOD_PTR(Array, void, Swizzle, const size_t* indices, size_t count);
+    METHOD_PTR(Array, bool, Compare, Array* array);
+};
+
+CONSTRUCTOR_OF(Array);
+DESTRUCTOR_OF(Array);
+COPY_OF(Array);
 
 
 #endif // C_CLASS_CORE_TYPES_HCLASS
