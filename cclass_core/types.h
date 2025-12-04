@@ -284,31 +284,6 @@ CONSTRUCTOR_OF(String);
 DESTRUCTOR_OF(String);
 COPY_OF(String);
 
-// Dynamically resizing string class
-CLASS(WideString) {
-    // Data buffer
-    wchar_t* _data;
-
-    // Allocated bytes
-    size_t _capacity;
-
-    // Number of bytes used
-    size_t _length;
-
-    METHOD_PTR(String, size_t, Len);
-    METHOD_PTR(String, const wchar_t*, AsString);
-    METHOD_PTR(String, void, FromString, const char* str);
-    METHOD_PTR(String, void, Reserve, size_t size);
-    METHOD_PTR(String, size_t, CurrentCapacity);
-    METHOD_PTR(String, void, Append, const char* seperator, const char* str, ...);
-    METHOD_PTR(String, wchar_t*, _GetRaw); // NOTE: **INTERNAL RUNTIME USE ONLY**
-};
-
-CONSTRUCTOR_OF(WideString);
-DESTRUCTOR_OF(WideString);
-COPY_OF(WideString);
-
-
 CLASS(Array) {
     size_t _length;
     size_t _capacity;

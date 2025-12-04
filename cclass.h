@@ -61,6 +61,11 @@
     #define SIMD_HINT
 #endif
 
+#if defined(_MSC_VER)
+#elif defined(__clang__) || defined(__GNUC__)
+#else
+#endif
+
 #ifdef _C_CLASS_MACRO_COMMENT
 /* ==========================================================
    MACRO-BASED CLASS SYSTEM FOR PURE C
