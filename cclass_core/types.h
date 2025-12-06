@@ -280,7 +280,7 @@ CLASS(String) {
     METHOD_PTR(String, char*, _GetRaw); // NOTE: **INTERNAL RUNTIME USE ONLY**
 };
 
-CONSTRUCTOR_OF(String);
+CONSTRUCTOR_OF(String, size_t initial_capacity);
 DESTRUCTOR_OF(String);
 COPY_OF(String);
 
@@ -290,7 +290,6 @@ CLASS(Array) {
     void* _data;
     size_t _element_size;
 
-    // Methods
     METHOD_PTR(Array, void, Push, void* elem, size_t element_size);
     METHOD_PTR(Array, void*, At, size_t index);
     METHOD_PTR(Array, size_t, Len);
@@ -298,7 +297,7 @@ CLASS(Array) {
     METHOD_PTR(Array, bool, Compare, Array* array);
 };
 
-CONSTRUCTOR_OF(Array);
+CONSTRUCTOR_OF(Array, size_t element_size, size_t capacity);
 DESTRUCTOR_OF(Array);
 COPY_OF(Array);
 
