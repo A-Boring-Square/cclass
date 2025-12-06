@@ -50,6 +50,7 @@
 #undef STR
 #undef STR_IMPL
 
+#if C_CLASS_USE_SIMD == 1
 #if defined(_MSC_VER)
     // SIMD_HINT macro for cross-compiler vectorization hints
     #define SIMD_HINT __pragma(loop(ivdep))
@@ -63,6 +64,7 @@
 #define THREAD_LOCAL _Thread_local
 #define BY_PTR restrict
 #define BY_REGISTER register
+#endif
 
 #ifdef _C_CLASS_MACRO_COMMENT
 /* ==========================================================
