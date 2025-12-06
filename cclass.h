@@ -60,11 +60,9 @@
     // SIMD_HINT macro for cross-compiler vectorization hints
     #define SIMD_HINT
 #endif
-
-#if defined(_MSC_VER)
-#elif defined(__clang__) || defined(__GNUC__)
-#else
-#endif
+#define THREAD_LOCAL _Thread_local
+#define BY_PTR restrict
+#define BY_REGISTER register
 
 #ifdef _C_CLASS_MACRO_COMMENT
 /* ==========================================================
