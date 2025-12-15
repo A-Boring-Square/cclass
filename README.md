@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CClass Documentation</title>
+</head>
 <body>
 
 <h1>CClass</h1>
@@ -32,21 +36,16 @@ C++ adds complexity, templates, multiple inheritance, and hidden behaviors that 
 </div>
 
 <h2>Installation</h2>
-1. Download the repository or the provided ZIP with headers and static library.
-    For example, unzip into a folder called `cclass`.
-
-2. Include the main header in your project:
-    `#include "cclass.h"`
-
-3. Include additional modules as needed:
-    `#include "cclass_core/math.hclass"`
-
-4. Link against the static library when compiling:
-    `gcc main.c -Icclass -Lcclass -lcclass -o main`
-
-5. Run your program
-    `./main`
-</pre>
+<p>This is a <strong>single-header library</strong>. There are no dependencies or additional files.</p>
+<ol>
+<li>Download or copy the <code>cclass.h</code> file into your project directory.</li>
+<li>Include it in your source files:</li>
+<pre>#include "cclass.h"</pre>
+<li>Compile as usual with your C compiler, for example:</li>
+<pre>gcc main.c -o main</pre>
+<li>Run your program:</li>
+<pre>./main</pre>
+</ol>
 
 <h2>Quick Start</h2>
 
@@ -106,7 +105,7 @@ Object-oriented programming is a tool, not a requirement. Use it where grouping 
 </p>
 
 <h2>Quick Reference: Macros</h2>
-<table>
+<table border="1" cellpadding="5" cellspacing="0">
 <tr>
 <th>Macro</th><th>Purpose</th><th>Example</th><th>Required / Optional</th>
 </tr>
@@ -114,68 +113,74 @@ Object-oriented programming is a tool, not a requirement. Use it where grouping 
 <td>CLASS(name)</td>
 <td>Declare a struct as a class</td>
 <td>CLASS(Bob) { int x; METHOD_PTR(Bob, void, say_hi,); };</td>
-<td class="required">Required</td>
+<td>Required</td>
 </tr>
 <tr>
 <td>METHOD_PTR(class, ret, method, ...)</td>
 <td>Function pointer inside struct</td>
 <td>METHOD_PTR(Bob, int, add, int a, int b);</td>
-<td class="optional">Optional</td>
+<td>Optional</td>
 </tr>
 <tr>
 <td>METHOD_DEF(class, ret, method, ...)</td>
 <td>Declare method with arguments</td>
 <td>METHOD_DEF(Bob, int, add, int a, int b);</td>
-<td class="required if using METHOD_PTR">Required</td>
+<td>Required if using METHOD_PTR</td>
 </tr>
 <tr>
 <td>METHOD_DEF_NO_ARGS(class, ret, method)</td>
 <td>Declare method without arguments</td>
 <td>METHOD_DEF_NO_ARGS(Bob, void, say_hi);</td>
-<td class="required if using METHOD_PTR">Required</td>
+<td>Required if using METHOD_PTR</td>
 </tr>
 <tr>
 <td>METHOD_IMPL / METHOD_IMPL_NO_ARGS</td>
 <td>Implement methods</td>
 <td>METHOD_IMPL(Bob, int, add, int a, int b) { ... }</td>
-<td class="required">Required</td>
+<td>Required</td>
 </tr>
 <tr>
 <td>CONSTRUCTOR_OF / DESTRUCTOR_OF</td>
 <td>Create constructor / destructor functions</td>
 <td>CONSTRUCTOR_OF(Bob, int x_val);</td>
-<td class="required">Required</td>
+<td>Required</td>
 </tr>
 <tr>
-<td>REGISTER_METHOD(obj, method)</td>
+<td>REGISTER_METHOD(obj, cls, method)</td>
 <td>Assign function pointer</td>
-<td>REGISTER_METHOD(obj, say_hi);</td>
-<td class="optional">Optional</td>
+<td>REGISTER_METHOD(obj, Bob, say_hi);</td>
+<td>Optional</td>
 </tr>
 <tr>
 <td>NEW / DELETE</td>
 <td>Allocate and free objects</td>
 <td>Bob* b = NEW(Bob, 42);</td>
-<td class="required">Required</td>
+<td>Required</td>
 </tr>
 <tr>
 <td>METHOD_CALL / METHOD_CALL_NO_ARGS</td>
 <td>Call methods via macros</td>
 <td>METHOD_CALL(b, add, 5, 6);</td>
-<td class="optional">Optional</td>
+<td>Optional</td>
 </tr>
 <tr>
 <td>SELF / SELF_ARG</td>
 <td>Used for object pointer</td>
 <td>SELF(b), SELF_ARG(Bob)</td>
-<td class="required">Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>COPY_OF / COPY</td>
+<td>Create a copy of an object</td>
+<td>COPY_OF(Bob); COPY(Bob, b);</td>
+<td>Optional</td>
 </tr>
 </table>
 
-<h2>Examples</h2>
+<h2>Example</h2>
 <pre>
-// main.cclass
-#include "Bob.hclass"
+// main.c
+#include "cclass.h"
 
 int main() {
     Bob* b = NEW(Bob, 10);
