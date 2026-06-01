@@ -10,17 +10,7 @@
      C_CLASS_VERSION_MINOR * 100 +  \
      C_CLASS_VERSION_PATCH)
 
-#ifndef C_CLASS_USE_SIMD
-#define C_CLASS_USE_SIMD 1
-#endif
 
-#define PTR_SENTINEL NULL
-#define INT_SENTINEL 0
-
-// Internal do not use
-#define C_CLASS_VARG_MAX_ARGS 64
-
-#define MAX_ARGS C_CLASS_VARG_MAX_ARGS
 
 #define ANY_CLASS void*
 
@@ -38,17 +28,6 @@
     abort(); \
 } while (0)
 
-#if C_CLASS_USE_SIMD
-    #if defined(_MSC_VER)
-        #define SIMD_HINT __pragma(loop(ivdep))
-    #elif defined(__clang__) || defined(__GNUC__)
-        #define SIMD_HINT _Pragma("omp simd")
-    #else
-        #define SIMD_HINT
-    #endif
-#else
-    #define SIMD_HINT
-#endif
 
 #define THREAD_LOCAL _Thread_local
 
