@@ -10,8 +10,6 @@
      C_CLASS_VERSION_MINOR * 100 +  \
      C_CLASS_VERSION_PATCH)
 
-
-
 #define ANY_CLASS void*
 
 // Helper to stringify a macro argument
@@ -28,7 +26,6 @@
     abort(); \
 } while (0)
 
-
 #define THREAD_LOCAL _Thread_local
 
 #define SELF(obj) (obj)
@@ -43,7 +40,6 @@
 
 #define METHOD_IMPL(cls, ret, name, ...) \
     ret cls##_##name(SELF_ARG(cls) , ##__VA_ARGS__)
-
 
 #define CONSTRUCTOR_OF(cls, ...) \
     cls* cls##_new(__VA_ARGS__)
