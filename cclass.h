@@ -60,7 +60,7 @@
 #define METHOD_CALL(obj, method, ...) \
     ((obj)->method((obj), ##__VA_ARGS__))
 
-#define COPY_OF(cls) cls* cls##_copy(const cls* self)
+#define COPY_OF(cls) cls* cls##_copy(const cls* obj)
 #define COPY(cls, obj) cls##_copy(obj)
 
 #endif /* C_CLASS_H */
